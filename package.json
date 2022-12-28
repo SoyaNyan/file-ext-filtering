@@ -1,0 +1,8 @@
+{
+  "name": "file-ext-filtering",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/SoyaNyan/file-ext-filtering.git",
+  "author": "SoyaNyan <nyan@soya.moe>",
+  "license": "MIT"
+}
