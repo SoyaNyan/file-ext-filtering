@@ -1,5 +1,8 @@
 <script lang="ts">
-  export let count
+  import { extList } from "../store/extStore"
+
+  // prop
+  export let extLimit: number
 </script>
 
-<p class="text-muted">{count} / 200</p>
+<p class="{$extList.length >= extLimit ? 'text-danger' : 'text-muted'}">{$extList.length} / {extLimit}</p>

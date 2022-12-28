@@ -1,19 +1,31 @@
 <script lang="ts">
   import { Card, CardBody } from 'sveltestrap'
   import ExtCounter from './ExtCounter.svelte'
+  import { extList } from '../store/extStore';
 
-  const extList = [
-    'css', 'js', 'html'
-  ]
+  // prop
+  export let extLimit: number
+
+
+
+  // remove ext item
+  function removeExt() {
+    const ext = this.dataset.id
+
+    extList.set($extList.filter((value) => value !== ext))
+
+    // api call (remove item)
+  }
 </script>
 
 <Card>
   <CardBody class="view-card">
-    <ExtCounter count={extList.length} />
-    {#each extList as ext}
+    <ExtCounter {extLimit} />
+    {#each $extList as ext}
       <div class="ext-item d-inline-block text-secondary mb-2 me-2">
         {ext}
-        <span class="remove-ext text-secondary fw-bold ms-2">X</span>
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <span class="remove-ext text-secondary fw-bold ms-2" on:click={removeExt} data-id={ext}>X</span>
       </div>
     {/each}
   </CardBody>

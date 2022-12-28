@@ -3,6 +3,9 @@
   import CheckBoxList from './components/CheckBoxList.svelte'
   import ExtInput from './components/ExtInput.svelte'
   import ExtView from './components/ExtView.svelte'
+
+  // set ext limit
+  let extLimit = 200
 </script>
 
 <main>
@@ -19,8 +22,8 @@
       <h3>커스텀 확장자</h3>
     </Col>
     <Col md="9">
-      <ExtInput />
-      <ExtView />
+      <ExtInput {extLimit} />
+      <ExtView {extLimit} />
     </Col>
   </Row>
 </main>

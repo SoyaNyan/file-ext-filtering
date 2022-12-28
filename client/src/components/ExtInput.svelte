@@ -1,8 +1,12 @@
 <script lang="ts">
   import { tick } from 'svelte'
   import { InputGroup, Input, Button } from 'sveltestrap'
+  import { extList } from '../store/extStore'
 
-  // input value
+  // prop
+  export let extLimit: number
+
+  // input
   let ext = ''
 
   // input keydown event
@@ -15,18 +19,47 @@
       // slice
       ext = ext.slice(0, 20)
     }
+  }
+
+  // input keydown event
+  async function handleKeydown(event: KeyboardEvent) {
+    // wait for state changes
+    await tick()
 
     // enter key (submit)
     if (event.key === 'Enter') {
-      // api call (add)
+      submit()
     }
   }
+
+  // submit button click event
+  function handleClick() {
+    // submit
+    submit()
+  }
+
+  // submit
+  async function submit() {
+    // check ext limit
+    if ($extList.length >= extLimit) {
+      // reset field
+      ext = ''
+
+      // alert message
+      alert(`확장자는 최대 ${extLimit}개까지만 등록할 수 있습니다.`)
+
+      return
+    }
+
+    // api call (add)
+  }
+
 </script>
 
 <div>
   <InputGroup>
-    <Input type="text" on:keyup={handleKeyup} bind:value={ext} placeholder="추가할 확장자를 입력해주세요... (최대 20자)" />
-    <Button color="primary" type="button">추가</Button>
+    <Input type="text" on:keyup={handleKeyup} on:keydown={handleKeydown} bind:value={ext} placeholder="추가할 확장자를 입력해주세요... (최대 20자)" />
+    <Button color="primary" type="button" on:click={handleClick}>추가</Button>
   </InputGroup>
   <p class="mt-1 {ext.length >= 20 && 'text-danger'}">
     {ext.length} / 20
