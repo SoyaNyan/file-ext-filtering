@@ -17,15 +17,15 @@ const API_ROOT = 'http://localhost:7757/api'
 const getExtList = () => {
   axios
     .get(`${API_ROOT}/extensions`)
-    .then(({ data: { success, data } }) => {
+    .then(({ data: { success, data, message } }) => {
       if (success) {
         extList.set(data.map((item: ExtensionData) => item.ext))
       } else {
-        console.log('Failed to fetch api.')
+        alert(message)
       }
     })
     .catch((e) => {
-      console.log(e)
+      alert('데이터베이스 에러.')
     })
 }
 
@@ -35,15 +35,15 @@ const getExtList = () => {
 const addExt = (ext: string) => {
   axios
     .post(`${API_ROOT}/extension`, { ext })
-    .then(({ data: success }) => {
+    .then(({ data: { success, message } }) => {
       if (success) {
         getExtList()
       } else {
-        console.log('Failed to add extension.')
+        alert(message)
       }
     })
     .catch((e) => {
-      console.log(e)
+      alert('데이터베이스 에러.')
     })
 }
 
@@ -55,15 +55,15 @@ const removeExt = (ext: string) => {
     .delete(`${API_ROOT}/extension`, {
       data: { ext },
     })
-    .then(({ data: success }) => {
+    .then(({ data: { success, message } }) => {
       if (success) {
         getExtList()
       } else {
-        console.log('Failed to remove extension.')
+        alert(message)
       }
     })
     .catch((e) => {
-      console.log(e)
+      alert('데이터베이스 에러.')
     })
 }
 

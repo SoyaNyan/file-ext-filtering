@@ -22,15 +22,15 @@ export const validate =
 			// parse zod issues
 			if (e instanceof ZodError) {
 				// invalid
-				return res.status(400).json({
+				return res.status(200).json({
 					success: false,
-					message: e.issues[0].message,
+					message: '확장자 이름을 다시 확인해주세요!',
 				})
 			}
 
 			return res.status(400).json({
 				success: false,
-				message: 'Form data validation error.',
+				message: '확장자 이름을 다시 확인해주세요!',
 				error: e,
 			})
 		}

@@ -47,9 +47,9 @@ const extInsertController = async (req: Request, res: Response) => {
 		logger.error(`[Sequelize] fail to add ${ext} to database.`)
 
 		// response
-		return res.status(500).json({
+		return res.status(200).json({
 			success: false,
-			message: `${ext} already exists.`,
+			message: `${ext}는 이미 등록되어 있습니다.`,
 		})
 	}
 
@@ -89,7 +89,7 @@ const extDeleteController = async (req: Request, res: Response) => {
 		// response
 		return res.status(500).json({
 			success: false,
-			message: `${ext} not exists.`,
+			message: `${ext}는 존재하지 않습니다.`,
 		})
 	}
 
@@ -107,9 +107,9 @@ const extDeleteController = async (req: Request, res: Response) => {
 			}
 
 			// response
-			return res.status(500).json({
+			return res.status(200).json({
 				success: false,
-				message: `Failed to remove ${ext} from database.`,
+				message: `${ext} 삭제에 실패했습니다.`,
 			})
 		})
 		.catch((e) => {
