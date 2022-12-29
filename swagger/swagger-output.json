@@ -11,7 +11,7 @@
 	"paths": {
 		"/api/extensions": {
 			"get": {
-				"tags": ["File Extention API"],
+				"tags": ["File Extension API"],
 				"description": "Fetch all extension list.",
 				"parameters": [],
 				"responses": {
@@ -26,7 +26,7 @@
 		},
 		"/api/extension": {
 			"post": {
-				"tags": ["File Extention API"],
+				"tags": ["File Extension API"],
 				"description": "Insert single extension.",
 				"parameters": [
 					{
@@ -52,7 +52,7 @@
 				}
 			},
 			"delete": {
-				"tags": ["File Extention API"],
+				"tags": ["File Extension API"],
 				"description": "Delete single extension.",
 				"parameters": [
 					{

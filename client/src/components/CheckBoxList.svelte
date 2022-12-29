@@ -1,47 +1,26 @@
 <script lang="ts">
   import { Input } from 'sveltestrap'
+  import { addExt, removeExt } from '../lib/api/extApi'
+  import { fixedExtList } from '../store/extStore'
 
-  // fixed extensions
-  const fixedExts = [
-    {
-      name: 'bat',
-      checked: false,
-    },
-    {
-      name: 'cmd',
-      checked: false,
-    },
-    {
-      name: 'com',
-      checked: false,
-    },
-    {
-      name: 'cpl',
-      checked: false,
-    },
-    {
-      name: 'exe',
-      checked: false,
-    },
-    {
-      name: 'scr',
-      checked: false,
-    },
-    {
-      name: 'js',
-      checked: false,
-    },
-  ]
+  // use derived store
+  $: checkBoxes = $fixedExtList
 
   // handle checkbox state changes
   function handleChange() {
     const { value, checked } = this
 
-    // api call (update state)
+    if (checked) {
+      // api call (add)
+      addExt(value)
+    } else {
+      // api call (remove)
+      removeExt(value)
+    }
   }
 </script>
 
-{#each fixedExts as { name, checked }}
+{#each checkBoxes as { name, checked }}
   <Input
     type="checkbox"
     class="d-inline-block me-3 user-select-none"

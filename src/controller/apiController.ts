@@ -14,7 +14,7 @@ const extListController = (_: Request, res: Response) => {
 	// fetch data
 	getExtList()
 		.then((extList) => {
-			logger.info(`[Sequelize] Extention list fetched from database.`)
+			logger.info(`[Sequelize] Extension list fetched from database.`)
 
 			// response
 			return res.status(200).json({

@@ -1,11 +1,19 @@
 <script lang="ts">
+  import { onMount } from 'svelte'
   import { Row, Col } from 'sveltestrap'
   import CheckBoxList from './components/CheckBoxList.svelte'
   import ExtInput from './components/ExtInput.svelte'
   import ExtView from './components/ExtView.svelte'
+  import { getExtList } from './lib/api/extApi'
 
   // set ext limit
   let extLimit = 200
+
+  // fetch ext list
+  onMount(() => {
+    // api call
+    getExtList()
+  })
 </script>
 
 <main>

@@ -1,7 +1,8 @@
 <script lang="ts">
   import { tick } from 'svelte'
   import { InputGroup, Input, Button } from 'sveltestrap'
-  import { extList } from '../store/extStore'
+  import { addExt } from '../lib/api/extApi'
+  import { extList, fixedExts } from '../store/extStore'
 
   // prop
   export let extLimit: number
@@ -29,6 +30,9 @@
     // enter key (submit)
     if (event.key === 'Enter') {
       submit()
+
+      // reset field
+      ext = ''
     }
   }
 
@@ -36,15 +40,22 @@
   function handleClick() {
     // submit
     submit()
+
+    // reset field
+    ext = ''
   }
 
   // submit
   async function submit() {
+    // check fixed ext list
+    if (fixedExts.includes(ext)) {
+      // alert message
+      alert('고정 확장자 목록에 있는 항목입니다.')
+      return
+    }
+
     // check ext limit
     if ($extList.length >= extLimit) {
-      // reset field
-      ext = ''
-
       // alert message
       alert(`확장자는 최대 ${extLimit}개까지만 등록할 수 있습니다.`)
 
@@ -52,6 +63,7 @@
     }
 
     // api call (add)
+    addExt(ext)
   }
 </script>
 
