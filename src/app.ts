@@ -31,7 +31,7 @@ const app = express()
 // express setting
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(cors({ origin: 'http://soya.moe:3777/' }))
+app.use(cors({ origin: 'http://soya.moe:3777' }))
 
 // swagger router
 app.use(
