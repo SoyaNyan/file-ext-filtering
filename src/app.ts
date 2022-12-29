@@ -8,7 +8,7 @@ import { sequelize } from './db/mariadb'
 
 // swagger
 import swaggerUi from 'swagger-ui-express'
-import swaggerOutput from './swagger/swagger-output.json' assert { type: 'json' }
+// import swaggerOutput from './swagger/swagger-output.json' assert { type: 'json' }
 const swaggerOutput = JSON.parse(readFileSync('swagger/swagger-output.json').toString())
 
 // swagger theme

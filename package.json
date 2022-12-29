@@ -7,7 +7,7 @@
 		"build": "tsc -p . && copy src\\config\\.env dist\\src\\config\\.env",
 		"start": "pm2 start ecosystem.config.js",
 		"start:dev": "tsc-watch --onSuccess \"ts-node dist/src/app.js\"",
-		"swagger-autogen": "node ./swagger/swagger.js",
+		"swagger-autogen": "ts-node ./swagger/swagger.js",
 		"swagger-themes:build": "cd ./node_modules/swagger-themes && tsc",
 		"create-table": "ts-node dist/src/db/migration/extMigration.js",
 		"test": "echo \"Error: no test specified\" && exit 1"

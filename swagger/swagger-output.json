@@ -1,0 +1,91 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"version": "1.0.0",
+		"title": "File Extension Filtering API",
+		"description": ""
+	},
+	"host": "localhost:7757",
+	"basePath": "/",
+	"schemes": ["http"],
+	"paths": {
+		"/api/extensions": {
+			"get": {
+				"tags": ["File Extention API"],
+				"description": "Fetch all extension list.",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"500": {
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/api/extension": {
+			"post": {
+				"tags": ["File Extention API"],
+				"description": "Insert single extension.",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"ext": {
+									"example": "any"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"500": {
+						"description": "Internal Server Error"
+					}
+				}
+			},
+			"delete": {
+				"tags": ["File Extention API"],
+				"description": "Delete single extension.",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"ext": {
+									"example": "any"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"500": {
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		}
+	},
+	"swaggerDefinition": {
+		"info": {
+			"title": "File Extension Filtering API",
+			"version": "1.0.0",
+			"description": "Api for backend file serer."
+		},
+		"host": "localhost:7757",
+		"schemes": ["http"]
+	}
+}

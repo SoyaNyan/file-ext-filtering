@@ -1,5 +1,6 @@
 // packages
 import swaggerAutogen from 'swagger-autogen'
+import path from 'path'
 
 // swagger setting
 const doc = {
@@ -16,7 +17,7 @@ const doc = {
 
 // output setting
 const outputFile = './swagger/swagger-output.json'
-const endpointsFiles = ['./app.js']
+const endpointsFiles = ['./src/app.ts']
 
 // init swagger
 swaggerAutogen()(outputFile, endpointsFiles, doc)

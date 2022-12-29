@@ -21,17 +21,17 @@ const router: Router = express.Router()
 /**
  * fetch-all extensions
  */
-router.get('/extensions', validate(formDataSchema), extListController)
+router.get('/extensions', extListController)
 
 /**
  * insert single extension
  */
-router.post('/extension', extInsertController)
+router.post('/extension', validate(formDataSchema), extInsertController)
 
 /**
  * delete single extension
  */
-router.delete('/extension', extDeleteController)
+router.delete('/extension', validate(formDataSchema), extDeleteController)
 
 // export router
 export default router
