@@ -9,7 +9,7 @@ type ExtensionData = {
 }
 
 // api root
-const API_ROOT = 'http://localhost:7757/api'
+const API_ROOT = 'http://soya.moe:7757/api'
 
 /**
  * fetch ext list
