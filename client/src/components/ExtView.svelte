@@ -1,12 +1,10 @@
 <script lang="ts">
   import { Card, CardBody } from 'sveltestrap'
   import ExtCounter from './ExtCounter.svelte'
-  import { extList } from '../store/extStore';
+  import { extList } from '../store/extStore'
 
   // prop
   export let extLimit: number
-
-
 
   // remove ext item
   function removeExt() {
@@ -20,12 +18,16 @@
 
 <Card>
   <CardBody class="view-card">
-    <ExtCounter {extLimit} />
+    <ExtCounter extLimit={extLimit} />
     {#each $extList as ext}
       <div class="ext-item d-inline-block text-secondary mb-2 me-2">
         {ext}
         <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <span class="remove-ext text-secondary fw-bold ms-2" on:click={removeExt} data-id={ext}>X</span>
+        <span
+          class="remove-ext text-secondary fw-bold ms-2"
+          on:click={removeExt}
+          data-id={ext}>X</span
+        >
       </div>
     {/each}
   </CardBody>

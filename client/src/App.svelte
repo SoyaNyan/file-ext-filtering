@@ -22,8 +22,8 @@
       <h3>커스텀 확장자</h3>
     </Col>
     <Col md="9">
-      <ExtInput {extLimit} />
-      <ExtView {extLimit} />
+      <ExtInput extLimit={extLimit} />
+      <ExtView extLimit={extLimit} />
     </Col>
   </Row>
 </main>

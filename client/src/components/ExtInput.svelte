@@ -53,18 +53,25 @@
 
     // api call (add)
   }
-
 </script>
 
 <div>
   <InputGroup>
-    <Input type="text" on:keyup={handleKeyup} on:keydown={handleKeydown} bind:value={ext} placeholder="추가할 확장자를 입력해주세요... (최대 20자)" />
+    <Input
+      type="text"
+      on:keyup={handleKeyup}
+      on:keydown={handleKeydown}
+      bind:value={ext}
+      placeholder="추가할 확장자를 입력해주세요... (최대 20자)"
+    />
     <Button color="primary" type="button" on:click={handleClick}>추가</Button>
   </InputGroup>
   <p class="mt-1 {ext.length >= 20 && 'text-danger'}">
     {ext.length} / 20
     {#if ext.length >= 20}
-      <span class="text-danger ms-1">확장자명은 최대 20자를 초과할 수 없습니다!</span>
+      <span class="text-danger ms-1"
+        >확장자명은 최대 20자를 초과할 수 없습니다!</span
+      >
     {/if}
   </p>
 </div>
