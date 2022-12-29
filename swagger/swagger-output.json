@@ -5,7 +5,7 @@
 		"title": "File Extension Filtering API",
 		"description": ""
 	},
-	"host": "localhost:7757",
+	"host": "soya.moe:7757",
 	"basePath": "/",
 	"schemes": ["http"],
 	"paths": {
