@@ -1,0 +1,16 @@
+{
+	"compilerOptions": {
+		"allowJs": true,
+		"lib": ["esnext"],
+		"target": "es6",
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"outDir": "./dist",
+		"esModuleInterop": true,
+		"sourceMap": true,
+		"strict": true,
+		"typeRoots": ["./types", "./node_modules/@types"]
+	},
+	"include": ["src/**/*"],
+	"exclude": ["node_modules"]
+}
