@@ -5,12 +5,12 @@ import { Request, Response } from 'express'
 import logger from '../../winston/winston.js'
 
 // utilities
-import { getExtList, insertExt, deleteExt } from '../utils/extApiUtils'
+import { getExtList, extExists, insertExt, deleteExt } from '../utils/extApiUtils'
 
 /**
  * fetch-all extensions controller
  */
-const extListController = (req: Request, res: Response) => {
+const extListController = (_: Request, res: Response) => {
 	// fetch data
 	getExtList()
 		.then((extList) => {
@@ -29,7 +29,7 @@ const extListController = (req: Request, res: Response) => {
 			return res.status(500).json({
 				success: false,
 				data: [],
-				message: e,
+				message: (e as any).errors[0].message,
 			})
 		})
 }
@@ -37,9 +37,21 @@ const extListController = (req: Request, res: Response) => {
 /**
  * insert single extension controller
  */
-const extInsertController = (req: Request, res: Response) => {
+const extInsertController = async (req: Request, res: Response) => {
 	// get ext name
 	const { ext } = req.body satisfies FormData
+
+	// check ext already exists or not
+	if (await extExists(ext)) {
+		// ext exists
+		logger.error(`[Sequelize] fail to add ${ext} to database.`)
+
+		// response
+		return res.status(500).json({
+			success: false,
+			message: `${ext} already exists.`,
+		})
+	}
 
 	// insert data
 	insertExt(ext)
@@ -57,7 +69,7 @@ const extInsertController = (req: Request, res: Response) => {
 			// response
 			return res.status(500).json({
 				success: false,
-				message: e,
+				message: (e as any).errors[0].message,
 			})
 		})
 }
@@ -65,18 +77,39 @@ const extInsertController = (req: Request, res: Response) => {
 /**
  * delete single extension controller
  */
-const extDeleteController = (req: Request, res: Response) => {
+const extDeleteController = async (req: Request, res: Response) => {
 	// get ext name
 	const { ext } = req.body satisfies FormData
 
+	// check ext already exists or not
+	if (!(await extExists(ext))) {
+		// ext exists
+		logger.error(`[Sequelize] fail to remove ${ext} from database.`)
+
+		// response
+		return res.status(500).json({
+			success: false,
+			message: `${ext} not exists.`,
+		})
+	}
+
 	// insert data
 	deleteExt(ext)
-		.then(() => {
-			logger.info(`[Sequelize] ${ext} removed from database.`)
+		.then((deleted) => {
+			// check deleted row
+			if (deleted === 1) {
+				logger.info(`[Sequelize] ${ext} removed from database.`)
+
+				// response
+				return res.status(200).json({
+					success: true,
+				})
+			}
 
 			// response
-			return res.status(200).json({
-				success: true,
+			return res.status(500).json({
+				success: false,
+				message: `Failed to remove ${ext} from database.`,
 			})
 		})
 		.catch((e) => {
@@ -85,7 +118,7 @@ const extDeleteController = (req: Request, res: Response) => {
 			// response
 			return res.status(500).json({
 				success: false,
-				message: e,
+				message: (e as any).errors[0].message,
 			})
 		})
 }

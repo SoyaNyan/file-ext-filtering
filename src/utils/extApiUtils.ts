@@ -12,6 +12,15 @@ const getExtList = () => {
 }
 
 /**
+ * check ext already exists
+ */
+const extExists = (ext: string) => {
+	return ExtModel.findOne({
+		where: { ext },
+	})
+}
+
+/**
  * insert single ext
  */
 const insertExt = (ext: string) => {
@@ -26,4 +35,4 @@ const deleteExt = (ext: string) => {
 }
 
 // export utils
-export { getExtList, insertExt, deleteExt }
+export { getExtList, extExists, insertExt, deleteExt }

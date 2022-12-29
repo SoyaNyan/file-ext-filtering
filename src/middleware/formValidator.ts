@@ -1,6 +1,6 @@
 // packages
 import { Request, Response, NextFunction } from 'express'
-import { AnyZodObject } from 'zod'
+import { AnyZodObject, ZodError } from 'zod'
 
 // validate form data
 export const validate =
@@ -19,7 +19,19 @@ export const validate =
 			// valid
 			return next()
 		} catch (e) {
-			// invalid
-			return res.status(400).json(e)
+			// parse zod issues
+			if (e instanceof ZodError) {
+				// invalid
+				return res.status(400).json({
+					success: false,
+					message: e.issues[0].message,
+				})
+			}
+
+			return res.status(400).json({
+				success: false,
+				message: 'Form data validation error.',
+				error: e,
+			})
 		}
 	}
