@@ -1,5 +1,5 @@
 // logger
-import logger from '../../winston/winston.js'
+import logger from '../../../winston/winston.js'
 
 // model
 import { ExtModel } from '../model/extModel'

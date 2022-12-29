@@ -7,7 +7,7 @@ import Sequelize, {
 } from 'sequelize'
 
 // database connection
-import { sequelize } from '../db/mariadb'
+import { sequelize } from '../mariadb'
 
 // model
 export class ExtModel extends Model<InferAttributes<ExtModel>, InferCreationAttributes<ExtModel>> {
