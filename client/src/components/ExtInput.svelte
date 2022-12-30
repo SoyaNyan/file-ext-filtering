@@ -2,7 +2,7 @@
   import { tick } from 'svelte'
   import { InputGroup, Input, Button } from 'sveltestrap'
   import { addExt } from '../lib/api/extApi'
-  import { extList, fixedExts } from '../store/extStore'
+  import { fixedExts, customExtList } from '../store/extStore'
   import ExtInputCounter from './ExtInputCounter.svelte'
 
   // prop
@@ -15,6 +15,11 @@
   async function handleKeyup() {
     // wait for state changes
     await tick()
+
+    // check regex for extension names
+    if (!/^[a-zA-Z0-9]*$/.test(ext)) {
+      ext = ext.replace(/[^a-zA-Z0-9]+/, '')
+    }
 
     // check ext length
     if (ext.length >= 20) {
@@ -30,6 +35,7 @@
 
     // enter key (submit)
     if (event.key === 'Enter') {
+      // submit
       submit()
 
       // reset field
@@ -56,10 +62,9 @@
     }
 
     // check ext limit
-    if ($extList.length >= extLimit) {
+    if ($customExtList.length >= extLimit) {
       // alert message
-      alert(`확장자는 최대 ${extLimit}개까지만 등록할 수 있습니다.`)
-
+      alert(`커스텀 확장자는 최대 ${extLimit}개까지만 등록할 수 있습니다.`)
       return
     }
 
