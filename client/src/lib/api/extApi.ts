@@ -1,6 +1,7 @@
 // packages
 import axios from 'axios'
 import { extList } from '../../store/extStore'
+import { addToast } from '../../store/toastStore'
 
 // type
 type ExtensionData = {
@@ -21,11 +22,23 @@ const getExtList = () => {
       if (success) {
         extList.set(data.map((item: ExtensionData) => item.ext))
       } else {
-        alert(message)
+        // toast
+        addToast({
+          type: 'danger',
+          isOpen: true,
+          timeout: 5000,
+          message,
+        })
       }
     })
     .catch((e) => {
-      alert('데이터베이스 에러.')
+      // toast
+      addToast({
+        type: 'danger',
+        isOpen: true,
+        timeout: 5000,
+        message: '차단된 확장자 목록을 불러오는데 실패했습니다.',
+      })
     })
 }
 
@@ -38,12 +51,32 @@ const addExt = (ext: string) => {
     .then(({ data: { success, message } }) => {
       if (success) {
         getExtList()
+
+        // toast
+        addToast({
+          type: 'success',
+          isOpen: true,
+          timeout: 5000,
+          message: `${ext}을(를) 차단할 확장자에 추가했습니다.`,
+        })
       } else {
-        alert(message)
+        // toast
+        addToast({
+          type: 'danger',
+          isOpen: true,
+          timeout: 5000,
+          message,
+        })
       }
     })
     .catch((e) => {
-      alert('데이터베이스 에러.')
+      // toast
+      addToast({
+        type: 'danger',
+        isOpen: true,
+        timeout: 5000,
+        message: '차단할 확장자 추가에 실패했습니다.',
+      })
     })
 }
 
@@ -58,12 +91,32 @@ const removeExt = (ext: string) => {
     .then(({ data: { success, message } }) => {
       if (success) {
         getExtList()
+
+        // toast
+        addToast({
+          type: 'success',
+          isOpen: true,
+          timeout: 5000,
+          message: `${ext}를 차단된 확장자에서 제거했습니다.`,
+        })
       } else {
-        alert(message)
+        // toast
+        addToast({
+          type: 'danger',
+          isOpen: true,
+          timeout: 5000,
+          message,
+        })
       }
     })
     .catch((e) => {
-      alert('데이터베이스 에러.')
+      // toast
+      addToast({
+        type: 'danger',
+        isOpen: true,
+        timeout: 5000,
+        message: '차단한 확장자 제거에 실패했습니다.',
+      })
     })
 }
 
