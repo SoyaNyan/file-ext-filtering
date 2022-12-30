@@ -2,6 +2,7 @@
   import { Toast, ToastBody, ToastHeader } from 'sveltestrap'
   import ErrorIcon from './icon/ErrorIcon.svelte'
   import SuccessIcon from './icon/SuccessIcon.svelte'
+  import InfoIcon from './icon/InfoIcon.svelte'
   import { dismissToast, toasts } from '../store/toastStore'
 </script>
 
@@ -21,8 +22,10 @@
       >
         {#if toast.type === 'success'}
           <span class="text-success"><SuccessIcon /> 요청성공</span>
-        {:else}
+        {:else if toast.type === 'danger'}
           <span class="text-danger"><ErrorIcon /> 요청실패</span>
+        {:else}
+          <span class="text-info"><InfoIcon /> 알림</span>
         {/if}
       </ToastHeader>
       <ToastBody>

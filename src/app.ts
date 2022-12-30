@@ -2,6 +2,8 @@
 import express, { Request, Response } from 'express'
 import { readFileSync } from 'fs'
 import cors from 'cors'
+import { createServer } from 'http'
+import { Server } from 'socket.io'
 
 // database
 import { sequelize } from './db/mariadb'
@@ -28,6 +30,33 @@ const { SERVER_PORT } = config
 // init express
 const app = express()
 
+// socket.io server
+const httpServer = createServer(app)
+const io = new Server(httpServer, {
+	cors: {
+		origin: 'http://soya.moe:3777',
+		methods: ['GET', 'POST'],
+	},
+})
+
+// on socket connect
+io.on('connection', (socket) => {
+	logger.info(`[Socket.io] ${socket.id} connected to server.`)
+
+	// on socket disconnect
+	socket.on('disconnect', () => {
+		logger.info(`[Socket.io] ${socket.id} disconnected from server.`)
+	})
+
+	// database crud action
+	socket.on('updateAction', () => {
+		logger.info(`[Socket.io] ${socket.id} triggered 'updateAction' event.`)
+
+		// emit 'update' event to all connected client except sender
+		socket.broadcast.emit('updateView')
+	})
+})
+
 // express setting
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -53,8 +82,9 @@ app.use(function (req: Request, res: Response) {
 })
 
 // start server
-app.listen(SERVER_PORT, async () => {
+httpServer.listen(SERVER_PORT, async () => {
 	logger.info(`[Express] Server is running on port:${SERVER_PORT}!`)
+	logger.info(`[Socket.io] Socket is listening on port:${SERVER_PORT}!`)
 
 	// sequelize connection
 	await sequelize

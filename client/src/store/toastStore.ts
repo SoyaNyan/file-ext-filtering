@@ -2,7 +2,7 @@ import { writable, type Writable } from 'svelte/store'
 
 type Toast = {
   id: string
-  type: 'success' | 'danger'
+  type: 'success' | 'danger' | 'info'
   isOpen: boolean
   timeout: number
   message: string

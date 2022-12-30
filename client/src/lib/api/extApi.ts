@@ -1,7 +1,9 @@
 // packages
 import axios from 'axios'
+import { get } from 'svelte/store'
 import { extList } from '../../store/extStore'
 import { addToast } from '../../store/toastStore'
+import { socket } from '../../store/socket'
 
 // type
 type ExtensionData = {
@@ -59,6 +61,9 @@ const addExt = (ext: string) => {
           timeout: 5000,
           message: `${ext}을(를) 차단할 확장자에 추가했습니다.`,
         })
+
+        // emit 'updateAction' event
+        get(socket).emit('updateAction')
       } else {
         // toast
         addToast({
@@ -99,6 +104,9 @@ const removeExt = (ext: string) => {
           timeout: 5000,
           message: `${ext}를 차단된 확장자에서 제거했습니다.`,
         })
+
+        // emit 'updateAction' event
+        get(socket).emit('updateAction')
       } else {
         // toast
         addToast({
