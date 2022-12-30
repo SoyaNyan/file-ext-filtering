@@ -5,6 +5,7 @@
   import ExtInput from './components/ExtInput.svelte'
   import ExtView from './components/ExtView.svelte'
   import { getExtList } from './lib/api/extApi'
+  import Toasts from './components/Toasts.svelte'
 
   // set ext limit
   let extLimit = 200
@@ -38,4 +39,5 @@
       </Row>
     </Col>
   </Row>
+  <Toasts />
 </main>

@@ -4,6 +4,7 @@
   import { addExt } from '../lib/api/extApi'
   import { fixedExts, customExtList } from '../store/extStore'
   import ExtInputCounter from './ExtInputCounter.svelte'
+  import { addToast } from '../store/toastStore'
 
   // prop
   export let extLimit: number
@@ -56,15 +57,25 @@
   async function submit() {
     // check fixed ext list
     if (fixedExts.includes(ext)) {
-      // alert message
-      alert('고정 확장자 목록에 있는 항목입니다.')
+      // toast
+      addToast({
+        type: 'danger',
+        isOpen: true,
+        timeout: 5000,
+        message: '고정 확장자 목록에 있는 항목입니다.',
+      })
       return
     }
 
     // check ext limit
     if ($customExtList.length >= extLimit) {
-      // alert message
-      alert(`커스텀 확장자는 최대 ${extLimit}개까지만 등록할 수 있습니다.`)
+      // toast
+      addToast({
+        type: 'danger',
+        isOpen: true,
+        timeout: 5000,
+        message: `커스텀 확장자는 최대 ${extLimit}개까지만 등록할 수 있습니다.`,
+      })
       return
     }
 

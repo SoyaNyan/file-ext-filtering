@@ -3,6 +3,7 @@
   import ExtCounter from './ExtCounter.svelte'
   import { removeExt } from '../lib/api/extApi'
   import { extList, customExtList } from '../store/extStore'
+  import CloseIcon from './icon/CloseIcon.svelte'
 
   // prop
   export let extLimit: number
@@ -28,7 +29,7 @@
         <span
           class="remove-ext text-secondary fw-bold ms-2"
           on:click={remove}
-          data-id={ext}>X</span
+          data-id={ext}><CloseIcon /></span
         >
       </div>
     {/each}
