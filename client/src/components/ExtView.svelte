@@ -2,7 +2,7 @@
   import { Card, CardBody } from 'sveltestrap'
   import ExtCounter from './ExtCounter.svelte'
   import { removeExt } from '../lib/api/extApi'
-  import { extList } from '../store/extStore'
+  import { extList, customExtList } from '../store/extStore'
 
   // prop
   export let extLimit: number
@@ -21,7 +21,7 @@
 <Card>
   <CardBody class="view-card">
     <ExtCounter extLimit={extLimit} />
-    {#each $extList as ext}
+    {#each $customExtList as ext}
       <div class="ext-item d-inline-block text-secondary mb-2 me-2">
         {ext}
         <!-- svelte-ignore a11y-click-events-have-key-events -->
