@@ -3,6 +3,7 @@
   import { InputGroup, Input, Button } from 'sveltestrap'
   import { addExt } from '../lib/api/extApi'
   import { extList, fixedExts } from '../store/extStore'
+  import ExtInputCounter from './ExtInputCounter.svelte'
 
   // prop
   export let extLimit: number
@@ -11,7 +12,7 @@
   let ext = ''
 
   // input keydown event
-  async function handleKeyup(event: KeyboardEvent) {
+  async function handleKeyup() {
     // wait for state changes
     await tick()
 
@@ -78,12 +79,5 @@
     />
     <Button color="primary" type="button" on:click={handleClick}>추가</Button>
   </InputGroup>
-  <p class="mt-1 {ext.length >= 20 && 'text-danger'}">
-    {ext.length} / 20
-    {#if ext.length >= 20}
-      <span class="text-danger ms-1"
-        >확장자명은 최대 20자를 초과할 수 없습니다!</span
-      >
-    {/if}
-  </p>
+  <ExtInputCounter ext={ext} />
 </div>
