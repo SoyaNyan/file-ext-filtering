@@ -56,7 +56,7 @@
 
 <main>
   <Row>
-    <Col sm="12" md={{ size: 6, offset: 3 }}>
+    <Col lg="12" xl={{ size: 8, offset: 2 }}>
       <Row>
         <Col md="3" class="text-start">
           <h3>고정 확장자</h3>
